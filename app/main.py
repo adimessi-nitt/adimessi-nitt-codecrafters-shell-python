@@ -47,9 +47,12 @@ def main():
         elif command.startswith("pwd"):
             sys.stdout.write(f"{os.getcwd()}\n")
         elif command.startswith("cd"):
-            path = command.split(" ")
-            os.chdir(path)
-            sys.stdout.write(f"{os.getcwd()}")
+            path = command.split(" ")[1]
+            if os.path.isdir(path):
+                new_dir =os.chdir(path)
+            else:
+                sys.stdout.write(f"cd: {path}: No such file or directory\n")
+
         else:
             sys.stdout.write(f"{command}: command not found\n")
         sys.stdout.flush()

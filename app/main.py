@@ -61,6 +61,9 @@ def main():
                     os.chdir(path)
                 else:
                     sys.stdout.write(f"cd: {path}: No such file or directory\n")
+            elif path.startswith("~"):
+                home = os.path.expanduser("~")
+                os.chdir(home)
             else:
                 absolute = None
                 sys.stdout.write(f"{path}: unsupported path\n")

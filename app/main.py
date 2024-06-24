@@ -1,7 +1,15 @@
-from email.errors import NonPrintableDefect
+
 from pathlib import Path
 import sys
 import os
+
+def file_path(PATH, file_name):
+    paths = PATH.split(":")
+    for path in paths:
+        path_name = os.path.join(path, file_name)
+        if os.path.isfile(path_name):
+            return path
+    return None
 
 def main():
     PATH  = os.environ.get("PATH")
@@ -29,8 +37,16 @@ def main():
                 sys.stdout.write(f"{content} is {cmd_path}\n")
             else:
                 sys.stdout.write(f"{content}: not found\n")
+        elif command.find("my_exe")==0:
+            files, name = command.split(" ")
+            path = file_path(PATH, files)
+            if(path):
+                os.system(command)
+            else:
+                sys.stdout.write(f"{command}: command not found\n")
+
         else:
-            sys.stdout.write(f"{command}: not found\n")
+            sys.stdout.write(f"{command}: command not found\n")
         sys.stdout.flush()
 
 if __name__ == "__main__":

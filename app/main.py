@@ -9,10 +9,10 @@ def main():
         sys.stdout.write("$ ")
         sys.stdout.flush()
         command = input()
-        sys.stdout.write(f"{command}: command not found\n")
-        sys.stdout.write("$ ")
-        exit(0)
-
+        if(command =="exit 0"):
+            return 
+        else:
+            sys.stdout.write(f"{command}: command not found\n")
 
 if __name__ == "__main__":
     main()

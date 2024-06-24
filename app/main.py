@@ -1,4 +1,5 @@
 
+from lib2to3.pytree import Node
 from pathlib import Path
 import sys
 import os
@@ -48,10 +49,18 @@ def main():
             sys.stdout.write(f"{os.getcwd()}\n")
         elif command.startswith("cd"):
             path = command.split(" ")[1]
-            if os.path.isdir(path):
-                new_dir =os.chdir(path)
+            if path.startswith("/"):
+                absolute= path
+                if os.path.isdir(path):
+                    new_dir =os.chdir(path)
+                else:
+                    sys.stdout.write(f"cd: {path}: No such file or directory\n")
+            elif path.startswith("."):
+                absolute = os.path.join(os.getcwd(), path)
+                absolute = os.path.normpath(absolute)
             else:
-                sys.stdout.write(f"cd: {path}: No such file or directory\n")
+                absolute = None
+                sys.stdout.write(f"{path}: unsupported path\n")
 
         else:
             sys.stdout.write(f"{command}: command not found\n")

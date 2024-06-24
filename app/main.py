@@ -18,7 +18,7 @@ def main():
         sys.stdout.write("$ ")
         sys.stdout.flush()
         command = input()
-        built_in = ["exit", "echo", "type"]
+        built_in = ["exit", "echo", "type","pwd"]
         if(command =="exit 0"):
             return 
         elif (command.find("echo")==0):
@@ -44,7 +44,8 @@ def main():
                 os.system(command)
             else:
                 sys.stdout.write(f"{command}: command not found\n")
-
+        elif command.startswith("pwd"):
+            sys.stdout.write(f"{os.getcwd()}\n")
         else:
             sys.stdout.write(f"{command}: command not found\n")
         sys.stdout.flush()
